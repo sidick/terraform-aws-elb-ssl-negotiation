@@ -3,8 +3,8 @@
 module "policy" {
   source = "../.."
 
-  ssl_policy_name = "${var.ssl_policy_name}"
-  load_balancer_id = "${var.load_balancer_id}"
+  ssl_policy_name    = "${var.ssl_policy_name}"
+  load_balancer_id   = "${var.load_balancer_id}"
   load_balancer_port = "${var.load_balancer_port}"
 
 
