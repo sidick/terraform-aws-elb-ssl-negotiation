@@ -1,0 +1,14 @@
+# This file is auto generated, please do not edit by hand
+
+resource "aws_lb_ssl_negotiation_policy" "policy" {
+  name          = "${var.ssl_policy_name}"
+  load_balancer = "${var.load_balancer_id}"
+  lb_port       = "${var.load_balancer_port}"
+
+{% for item in ciphers | sort(attribute='clean_cipher_name') %}
+  attribute {
+    name  = "{{ item.cipher }}"
+    value = "${var.{{ item.clean_cipher_name }}}"
+  }
+{% endfor %}
+}

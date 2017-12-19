@@ -1,0 +1,23 @@
+# This file is auto generated, please do not edit by hand
+
+variable "ssl_policy_name" {
+  description = "Name of SSL Policy"
+}
+
+variable "load_balancer_port" {
+  description = "TCP Port to affect"
+}
+
+variable "load_balancer_id" {
+  description = "ID of the ELB"
+}
+{% for item in ciphers | sort(attribute='clean_cipher_name')%}
+variable "{{ item.clean_cipher_name }}" {
+  description = "{{ item.cipher }}"
+{%- if top_variables is defined %}
+  default     = "false"
+{%- else %}
+  default     = "{{ item.default }}"
+{%- endif %}
+}
+{% endfor %}
