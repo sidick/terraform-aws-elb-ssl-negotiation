@@ -29,17 +29,15 @@ There are two ways to create security groups using this module:
 module "elb_ssl_policy" {
   source = "sidick/elb-ssl-negotiation/aws"
 
-  name        = "default-policy"
-  description = "SSL Policy with only TLSv1.2 and ECDHE-RSA-AES128-GCM-SHA256 enabled and server defined order set"
-  ssl_policy_name = "default_policy"
-  load_balancer_id = "example_lb"
+  ssl_policy_name    = "default_policy"
+  load_balancer_id   = "example_lb"
   load_balancer_port = "443"
 
-  protocol_tlsv12 = "true"
+  protocol_tlsv12             = "true"
   ecdhe_rsa_aes128_gcm_sha256 = "true"
   server_defined_cipher_order = "true"
-
 }
+
 ```
 
 
@@ -49,10 +47,8 @@ module "elb_ssl_policy" {
 module "elb_ssl_policy" {
   source = "sidick/elb-ssl-negotiation/aws//modules/ELBSecurityPolicy-2016-08"
 
-  name        = "default-policy"
-  description = "SSL Policy with only TLSv1.2 and ECDHE-RSA-AES128-GCM-SHA256 enabled and server defined order set"
-  ssl_policy_name = "default_policy"
-  load_balancer_id = "example_lb"
+  ssl_policy_name    = "default_policy"
+  load_balancer_id   = "example_lb"
   load_balancer_port = "443"
 
   protocol_tlsv1 = "false"
