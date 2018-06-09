@@ -56,11 +56,6 @@ module "elb_ssl_policy" {
 ```
 
 
-Examples
---------
-
-To be added
-
 How to update the ciphers and protocols
 ---------------------------------------
 
