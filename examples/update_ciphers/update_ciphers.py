@@ -119,6 +119,16 @@ def create_module_main_file(policy):
     )
 
 
+def create_module_readme(policy):
+    with open('README.md.j2', 'r') as j2:
+        template_file = ''.join(j2.readlines())
+
+    template = jinja2.Template(template_file)
+    return template.render(
+        module_name=policy['PolicyName']
+    )
+
+
 def create_module(policy):
     path = "../../modules/%s" % (policy['PolicyName'])
 
@@ -136,6 +146,10 @@ def create_module(policy):
 
     outputs_file = create_module_main_file(policy)
     with open("%s/main.tf" % (path), "w") as v:
+        v.write(outputs_file)
+
+    outputs_file = create_module_readme(policy)
+    with open("%s/README.md" % (path), "w") as v:
         v.write(outputs_file)
 
 
