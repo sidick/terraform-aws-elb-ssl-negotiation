@@ -2,8 +2,8 @@
 
 import sys
 import os
-import sh
 import json
+import sh
 import jinja2
 
 
@@ -30,8 +30,8 @@ def create_main_variable_file(ciphers):
                     "default": attribute['AttributeValue']
                     })
 
-    with open('variables.tf.j2', 'r') as j2:
-        template_file = ''.join(j2.readlines())
+    with open('variables.tf.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
 
     template = jinja2.Template(template_file)
     return template.render(
@@ -55,8 +55,8 @@ def create_module_variable_file(policy):
                 "default": attribute['AttributeValue']
                 })
 
-    with open('variables.tf.j2', 'r') as j2:
-        template_file = ''.join(j2.readlines())
+    with open('variables.tf.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
 
     template = jinja2.Template(template_file)
     return template.render(
@@ -64,9 +64,9 @@ def create_module_variable_file(policy):
     )
 
 
-def create_module_output_file(policy):
-    with open('module_outputs.tf.j2', 'r') as j2:
-        template_file = ''.join(j2.readlines())
+def create_module_output_file():
+    with open('module_outputs.tf.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
     template = jinja2.Template(template_file)
     return template.render()
 
@@ -86,8 +86,8 @@ def create_main_tf(ciphers):
                     "cipher": attribute['AttributeName']
                     })
 
-    with open('main.tf.j2', 'r') as j2:
-        template_file = ''.join(j2.readlines())
+    with open('main.tf.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
 
     template = jinja2.Template(template_file)
     return template.render(
@@ -110,8 +110,8 @@ def create_module_main_file(policy):
                 "default": attribute['AttributeValue']
                 })
 
-    with open('module_main.tf.j2', 'r') as j2:
-        template_file = ''.join(j2.readlines())
+    with open('module_main.tf.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
 
     template = jinja2.Template(template_file)
     return template.render(
@@ -120,8 +120,8 @@ def create_module_main_file(policy):
 
 
 def create_module_readme(policy):
-    with open('README.md.j2', 'r') as j2:
-        template_file = ''.join(j2.readlines())
+    with open('README.md.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
 
     template = jinja2.Template(template_file)
     return template.render(
@@ -137,20 +137,20 @@ def create_module(policy):
         os.mkdir(path)
 
     variable_file = create_module_variable_file(policy)
-    with open("%s/variables.tf" % (path), "w") as v:
-        v.write(variable_file)
+    with open("%s/variables.tf" % (path), "w") as output_file:
+        output_file.write(variable_file)
 
-    outputs_file = create_module_output_file(policy)
-    with open("%s/outputs.tf" % (path), "w") as v:
-        v.write(outputs_file)
+    outputs_file = create_module_output_file()
+    with open("%s/outputs.tf" % (path), "w") as output_file:
+        output_file.write(outputs_file)
 
     outputs_file = create_module_main_file(policy)
-    with open("%s/main.tf" % (path), "w") as v:
-        v.write(outputs_file)
+    with open("%s/main.tf" % (path), "w") as output_file:
+        output_file.write(outputs_file)
 
     outputs_file = create_module_readme(policy)
-    with open("%s/README.md" % (path), "w") as v:
-        v.write(outputs_file)
+    with open("%s/README.md" % (path), "w") as output_file:
+        output_file.write(outputs_file)
 
 
 def main():
