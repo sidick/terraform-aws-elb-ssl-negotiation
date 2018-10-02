@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+""" Recreate Terraform code based on the AWS SSL policies """
 
 import sys
 import os
@@ -8,6 +9,8 @@ import jinja2
 
 
 def clean_attribute_name(attribute_name):
+    """ Return the sanitised attribute name to use as parameter name """
+
     new_name = attribute_name.lower()
     new_name = ''.join(ch for ch in new_name if (ch.isalnum() or ch == '-'))
     new_name = new_name.replace('-', '_')
@@ -15,6 +18,8 @@ def clean_attribute_name(attribute_name):
 
 
 def create_main_variable_file(ciphers):
+    """ Return the top level variables.tf """
+
     attribute_list = []
     attributes_seen = dict()
 
@@ -41,6 +46,7 @@ def create_main_variable_file(ciphers):
 
 
 def create_module_variable_file(policy):
+    """ Return variables.tf for a sub-module """
     attribute_list = []
     attributes_seen = dict()
 
@@ -65,6 +71,8 @@ def create_module_variable_file(policy):
 
 
 def create_module_output_file():
+    """ Return outputs.tf file for sub-module """
+
     with open('module_outputs.tf.j2', 'r') as j2template:
         template_file = ''.join(j2template.readlines())
     template = jinja2.Template(template_file)
@@ -72,6 +80,8 @@ def create_module_output_file():
 
 
 def create_main_tf(ciphers):
+    """ Return top level main.tf file from template """
+
     attribute_list = []
     attributes_seen = dict()
 
@@ -96,6 +106,8 @@ def create_main_tf(ciphers):
 
 
 def create_module_main_file(policy):
+    """ Return main.tf file for sub-module """
+
     attribute_list = []
     attributes_seen = dict()
 
@@ -120,6 +132,8 @@ def create_module_main_file(policy):
 
 
 def create_module_readme(policy):
+    """ Return README.md file for sub-module """
+
     with open('README.md.j2', 'r') as j2template:
         template_file = ''.join(j2template.readlines())
 
@@ -130,6 +144,8 @@ def create_module_readme(policy):
 
 
 def create_module(policy):
+    """ Create a new sub-module based on provided policy """
+
     path = "../../modules/%s" % (policy['PolicyName'])
 
     # Make sure directory exists
@@ -154,6 +170,7 @@ def create_module(policy):
 
 
 def main():
+    """ Main function """
 
     # Change to script directory
     script_path = os.path.dirname(os.path.realpath(__file__))
