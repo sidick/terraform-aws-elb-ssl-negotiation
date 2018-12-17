@@ -1,29 +1,27 @@
 # terraform-aws-elb-ssl-negotiation
 
-AWS ELB SSL Negotiation Policy Terraform module
-===============================================
+## AWS ELB SSL Negotiation Policy Terraform module
 
 Terraform module which creates [SSL Negotiation Configurations for Classic Load Balancers](http://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-ssl-security-policy.html) on AWS.
 
 These types of resources are supported:
 
-* [AWS Classic ELB SSL Negotiation Policy](https://www.terraform.io/docs/providers/aws/r/lb_ssl_negotiation_policy.html)
+*   [AWS Classic ELB SSL Negotiation Policy](https://www.terraform.io/docs/providers/aws/r/lb_ssl_negotiation_policy.html)
 
-Features
---------
+### Features
+
 This module aims to allow the implementation of **ALL** possible combinations of SSL ciphers and protocols which are supported by AWS and latest stable version of Terraform:
-* Generic module which allows the setting of any combination of ciphers and protocols.
-* Pre-written modules to implement all of the Amazon supplied default policies.
-* Allowing the customisation of default policies.
+*   Generic module which allows the setting of any combination of ciphers and protocols.
+*   Pre-written modules to implement all of the Amazon supplied default policies.
+*   Allowing the customisation of default policies.
 
 If there is a missing feature or a bug - [open an issue](https://github.com/sidick/terraform-aws-elb-ssl-negotiation/issues/new).
 
-Usage
------
+### Usage
 
 There are two ways to create security groups using this module:
 
-##### 1. SSL Negotiation Policy with custom rules
+#### 1. SSL Negotiation Policy with custom rules
 
 ```hcl
 module "elb_ssl_policy" {
@@ -41,7 +39,7 @@ module "elb_ssl_policy" {
 ```
 
 
-##### 2. SSL Negotiation Policy with pre-defined rules but with use of TLSv1 overridden and disabled
+#### 2. SSL Negotiation Policy with pre-defined rules but with use of TLSv1 overridden and disabled
 
 ```hcl
 module "elb_ssl_policy" {
@@ -56,17 +54,14 @@ module "elb_ssl_policy" {
 ```
 
 
-How to update the ciphers and protocols
----------------------------------------
+### How to update the ciphers and protocols
 
 The lists of all the protocols and ciphers are created dynamically using a python script in the `examples/update_ciphers` directory. If you run this script it will recreate all modules from the Jinja2 templates in that directory based on the output of `aws describe-load-balancer-policies`
 
-Authors
--------
+### Authors
 
 Module managed by [Simon Dick](https://github.com/sidick).
 
-License
--------
+### License
 
 BSD 3-Clause License. See LICENSE for full details.
