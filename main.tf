@@ -1,6 +1,7 @@
 # This file is auto generated, please do not edit by hand
 
 resource "aws_lb_ssl_negotiation_policy" "policy" {
+  count         = "${var.create}"
   name          = "${var.ssl_policy_name}"
   load_balancer = "${var.load_balancer_id}"
   lb_port       = "${var.load_balancer_port}"

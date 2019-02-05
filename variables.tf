@@ -1,5 +1,8 @@
 # This file is auto generated, please do not edit by hand
-
+variable "create" {
+  description = "Controls if this should be created"
+  default     = true
+}
 variable "ssl_policy_name" {
   description = "Name of SSL Policy"
 }
