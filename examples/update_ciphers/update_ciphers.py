@@ -168,6 +168,8 @@ def create_module(policy):
     with open("%s/README.md" % (path), "w") as output_file:
         output_file.write(outputs_file)
 
+    sh.terraform('fmt', _cwd=path)
+
 
 def main():
     """ Main function """
