@@ -3,11 +3,11 @@
 module "policy" {
   source = "../.."
 
-  ssl_policy_name    = "${var.ssl_policy_name}"
-  load_balancer_id   = "${var.load_balancer_id}"
-  load_balancer_port = "${var.load_balancer_port}"
+  ssl_policy_name    = var.ssl_policy_name
+  load_balancer_id   = var.load_balancer_id
+  load_balancer_port = var.load_balancer_port
 
 {% for item in ciphers | sort(attribute='clean_cipher_name') %}
-  {{ item.clean_cipher_name }} = "${var.{{ item.clean_cipher_name }}}"
+  {{ item.clean_cipher_name }} = var.{{ item.clean_cipher_name }}
 {%- endfor %}
 }
