@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 """ Recreate Terraform code based on the AWS SSL policies """
 
-import sys
 import os
-import json
 import sh
 import jinja2
+import boto3
 
 
 def clean_attribute_name(attribute_name):
@@ -171,6 +170,15 @@ def create_module(policy):
     sh.terraform('fmt', _cwd=path)
 
 
+def get_elb_policies():
+    """ Get list of ELB policies """
+
+    client = boto3.client('elb')
+    response = client.describe_load_balancer_policies()
+
+    return response
+
+
 def main():
     """ Main function """
 
@@ -179,11 +187,7 @@ def main():
     os.chdir(script_path)
 
     # Read in json
-    policy_list = json.loads(
-        str(
-            sh.aws.elb('describe-load-balancer-policies', '--output=json')
-        )
-    )
+    policy_list = get_elb_policies()
 
     # Create top level variables file
     main_variables_file = create_main_variable_file(policy_list)
