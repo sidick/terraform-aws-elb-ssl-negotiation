@@ -24,4 +24,3 @@ jobs:
 
     - name: GitHub Action for pylint
       uses: cclauss/GitHub-Action-for-pylint@0.7.0
-      args: pip install -r examples/update_ciphers/requirements.txt ; pylint examples/update_ciphers/*.py
