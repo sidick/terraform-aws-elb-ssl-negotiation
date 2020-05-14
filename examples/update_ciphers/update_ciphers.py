@@ -2,7 +2,6 @@
 """ Recreate Terraform code based on the AWS SSL policies """
 
 import os
-import sh
 import jinja2
 import boto3
 
@@ -167,7 +166,7 @@ def create_module(policy):
     with open("%s/README.md" % (path), "w") as output_file:
         output_file.write(outputs_file)
 
-    sh.terraform('fmt', _cwd=path)
+    os.system("terraform fmt -list=false {}".format(path))
 
 
 def get_elb_policies():
