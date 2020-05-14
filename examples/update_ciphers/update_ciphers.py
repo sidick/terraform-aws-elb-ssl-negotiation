@@ -202,6 +202,8 @@ def main():
     for policy in policy_list['PolicyDescriptions']:
         create_module(policy)
 
+    return 0
+
 
 if __name__ == "__main__":
     sys.exit(main())
