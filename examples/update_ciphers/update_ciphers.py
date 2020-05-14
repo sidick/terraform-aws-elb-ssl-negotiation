@@ -202,6 +202,9 @@ def main():
     with open("../../main.tf", "w") as v_file:
         v_file.write(main_tf_file)
 
+    os.system("terraform fmt -list=false {}".format("../.."))
+
+    # Write out sub modules
     for policy in policy_list['PolicyDescriptions']:
         create_module(policy)
 

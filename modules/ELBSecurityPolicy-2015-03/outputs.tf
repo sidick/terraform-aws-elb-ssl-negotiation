@@ -2,5 +2,5 @@
 
 output "this_elb_ssl_policy_id" {
   description = "The ID of the security group"
-  value       = "${module.policy.this_elb_ssl_policy_id}"
+  value       = module.policy.this_elb_ssl_policy_id
 }
