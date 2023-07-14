@@ -77,6 +77,15 @@ def create_module_output_file():
     return template.render()
 
 
+def create_versions_file():
+    """ Return versions.tf file """
+
+    with open('versions.tf.j2', 'r') as j2template:
+        template_file = ''.join(j2template.readlines())
+    template = jinja2.Template(template_file)
+    return template.render()
+
+
 def create_main_tf(ciphers):
     """ Return top level main.tf file from template """
 
@@ -166,6 +175,14 @@ def create_module(policy):
     with open("%s/README.md" % (path), "w") as output_file:
         output_file.write(outputs_file)
 
+    outputs_file = create_module_readme(policy)
+    with open("%s/README.md" % (path), "w") as output_file:
+        output_file.write(outputs_file)
+
+    outputs_file = create_versions_file()
+    with open("%s/versions.tf" % (path), "w") as output_file:
+        output_file.write(outputs_file)
+
     os.system("terraform fmt -list=false {}".format(path))
 
 
@@ -198,9 +215,16 @@ def main():
     # Create top level main.tf file
     main_tf_file = create_main_tf(policy_list)
 
-    # Write out top level variables file
+    # Write out top level main.tf file
     with open("../../main.tf", "w") as v_file:
         v_file.write(main_tf_file)
+
+    # Create top level versions.tf file
+    versions_tf_file = create_versions_file()
+
+    # Write out top level versions.tf file
+    with open("../../versions.tf", "w") as v_file:
+        v_file.write(versions_tf_file)
 
     os.system("terraform fmt -list=false {}".format("../.."))
 
