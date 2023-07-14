@@ -17,9 +17,11 @@ This module aims to allow the implementation of **ALL** possible combinations of
 
 This module implements the AWS default of ELBSecurityPolicy-2016-08
 
-This module is designed to work with Terraform 0.12 or higher, for earlier versions of Terraform please use a 0.2.x version of the module
+This module is designed to work with Terraform 1.0 or higher, for earlier versions of Terraform please use a 0.3.x version of the module.
 
 If there is a missing feature or a bug - [open an issue](https://github.com/sidick/terraform-aws-elb-ssl-negotiation/issues/new).
+
+Due to me not using this module anymore this is likely to be the last update unless any issues are found.
 
 Usage
 -----
